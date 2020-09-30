@@ -372,7 +372,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEST
+  m_Text: "LD 47 \n>:D"
 --- !u!222 &1442669425
 CanvasRenderer:
   m_ObjectHideFlags: 0
