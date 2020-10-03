@@ -33,7 +33,6 @@ namespace Entities.Enemy.Ai.States
 
         public void OnEnter()
         {
-            Debug.Log("Start moving");
         }
 
         public void OnExit()

@@ -14,7 +14,6 @@ namespace Entities.Enemy.Ai.States
 
         public void OnEnter()
         {
-            Debug.Log("Idle");
         }
 
         public void OnExit()
