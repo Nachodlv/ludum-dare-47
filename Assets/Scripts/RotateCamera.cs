@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
@@ -8,6 +10,12 @@ namespace DefaultNamespace
     {
         [SerializeField] private Transform player;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
+
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(1);
+            virtualCamera.Priority = 200;
+        }
 
         private void Update()
         {
