@@ -7,7 +7,6 @@ using DefaultNamespace;
 using Positions;
 using UnityEngine;
 
-[RequireComponent(typeof(GameMode))]
 public class PositionManager : MonoBehaviour, IPositionManager
 {
     
@@ -31,17 +30,18 @@ public class PositionManager : MonoBehaviour, IPositionManager
     // Update is called once per frame
     void Update()
     {
-        foreach (var p in _positions)
+        for (int i = 0; i < _positions.Count; i++)
         {
+            Position p = _positions[i];
             float newAngle = CalculateAngle(p.Racer.transform.position.normalized);
-            if(p.Angle - newAngle > _angleThreshold) LapCompleted(p.Racer, true);
-            else if (p.Angle - newAngle < -_angleThreshold) LapCompleted(p.Racer, false);
+            if(p.Angle - newAngle > _angleThreshold) LapCompleted(i, true);
+            else if (p.Angle - newAngle < -_angleThreshold) LapCompleted(i, false);
             p.Angle = newAngle;
         }
         
         _positions.Sort(); // Sort the positions, when should this be done? (And how often?)
-        int newPosition = CalculatePlayerPosition();
-        
+        int newPosition = FindPlayerPosition();
+
         if (newPosition != _previousPosition)
         {
             OnPlayerPositionChange?.Invoke(newPosition);
@@ -54,22 +54,15 @@ public class PositionManager : MonoBehaviour, IPositionManager
         return _positions.Select(p => p.Racer).ToList();
     }
 
-    private void LapCompleted(Racer racer, bool increment)
+    private void LapCompleted(int racerIndex, bool increment)
     {
-        for (int i = 0; i < _positions.Count; i++)
+        Position p = _positions[racerIndex];
+        if (increment) p.Laps++;
+        else p.Laps--;
+        if (p.Racer.IsPlayer)
         {
-            Position p = _positions[i];
-            if (p.Racer == racer)
-            {
-                if (increment) p.Laps++;
-                else p.Laps--;
-                if (p.Racer.IsPlayer)
-                {
-                    if (p.Laps == gameMode.TotalLaps) OnPlayerFinishRace?.Invoke(i);
-                    else OnPlayerFinishLap?.Invoke(p.Laps);
-                }
-                break;
-            }
+            if (p.Laps == gameMode.TotalLaps) OnPlayerFinishRace?.Invoke(racerIndex);
+            else OnPlayerFinishLap?.Invoke(p.Laps);
         }
     }
 
@@ -82,18 +75,9 @@ public class PositionManager : MonoBehaviour, IPositionManager
         return value < 0 ? 360 + value : value;
     }
 
-    private int CalculatePlayerPosition()
+    private int FindPlayerPosition()
     {
-        int position = 0;
-        for (int i = 0; i < _positions.Count; i++)
-        {
-            if (_positions[i].Racer.IsPlayer)
-            {
-                position = i;
-                break;
-            }
-        }
-        return position;
+        return _positions.FindIndex(p => p.Racer.IsPlayer);
     }
     
     private class Position : IComparable<Position>
@@ -116,11 +100,10 @@ public class PositionManager : MonoBehaviour, IPositionManager
         public int CompareTo(Position other)
         {
             // Can this be improved?
-            // Lap is counted before the angle = 0, so the order can sometimes not be correct.
             if (other == null) return 1;
             if (Laps > other.Laps) return -1;
             if (Laps < other.Laps) return 1;
-            if (Angle > other.Angle) return -1; // Should we add a threshold here?
+            if (Angle > other.Angle) return -1;
             if (Angle < other.Angle) return 1;
             return 0;
         }
