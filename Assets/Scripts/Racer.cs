@@ -7,7 +7,7 @@ public class Racer : MonoBehaviour
     [SerializeField] private string racerName;
     public string RacerName => racerName;
 
-    private string[] _names = {"Juan", "Eduardo"};
+    private readonly string[] _names = {"Juan", "Eduardo"};
 
     private void Awake()
     {

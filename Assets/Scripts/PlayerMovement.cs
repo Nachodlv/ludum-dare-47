@@ -12,14 +12,17 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public RotationState rotationState;
+    public ParticleSystem particleSystem1;
+    public ParticleSystem particleSystem2;
+
     private Transform _corner1;
     private Vector2 _corner1Target;
-    
+
     private Transform _corner2;
     private Vector2 _corner2Target;
 
     private float _distToGround;
-    
+
     public bool isGrounded = false;
     private Rigidbody2D _rigidBody2D;
     // Start is called before the first frame update
@@ -35,35 +38,29 @@ public class PlayerMovement : MonoBehaviour {
     void Update() {
         _CalculateRotationState();
         _CalculateAngle();
-        
+
         Debug.DrawLine(_corner1.position, _corner1.position + new Vector3(_corner1Target.x, _corner1Target.y), Color.red);
         Debug.DrawLine(_corner2.position, _corner2.position + new Vector3(_corner2Target.x, _corner2Target.y), Color.green);
-        
+
         isGrounded = IsGrounded();
         if (IsGrounded()) {
             if (Input.GetKeyDown(KeyCode.A)) {
                 _rigidBody2D.AddForceAtPosition(_corner1Target, _corner1.position, ForceMode2D.Impulse);
+                particleSystem1.Play();
             }
 
             if (Input.GetKeyDown(KeyCode.D)) {
                 _rigidBody2D.AddForceAtPosition(_corner2Target, _corner2.position, ForceMode2D.Impulse);
+                particleSystem2.Play();
             }
         }
-
-        if (transform.position.x > 50) {
-            transform.Translate(-100, 0, 0, Space.World);
-        }
-
-        if (transform.position.x < -50) {
-            transform.Translate(100, 0, 0, Space.World);
-        }
-
-
     }
-    
+
     public bool IsGrounded() {
-        Debug.DrawLine(transform.position, transform.position + -Vector3.up * (_distToGround + 2f), Color.black);
-        return Physics2D.Raycast(transform.position, -Vector3.up, _distToGround + 2f);
+        var position = transform.position;
+        var direction = position.normalized;
+        Debug.DrawLine(position, position + direction * (_distToGround + 2f), Color.black);
+        return Physics2D.Raycast(position, direction, _distToGround + 2f);
     }
 
     private void _CalculateRotationState() {

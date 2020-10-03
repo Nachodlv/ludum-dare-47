@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,17 +15,24 @@ namespace Positions
         private void Awake()
         {
             ChangePlayerPositionRandom();
+            ChangeLapRandom();
         }
 
         public List<Racer> GetRacersPositions()
         {
-            throw new System.NotImplementedException();
+            return FindObjectsOfType<Racer>().ToList();
         }
 
         public void ChangePlayerPositionRandom()
         {
             OnPlayerPositionChange?.Invoke(Random.Range(1, 10));
             Invoke(nameof(ChangePlayerPositionRandom), Random.Range(1, 5));
+        }
+
+        public void ChangeLapRandom()
+        {
+            OnPlayerFinishLap?.Invoke(Random.Range(1, 4));
+            Invoke(nameof(ChangeLapRandom), Random.Range(1, 5));
         }
     }
 }
