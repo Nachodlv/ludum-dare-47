@@ -61,8 +61,8 @@ public class PositionManager : MonoBehaviour, IPositionManager
         else p.Laps--;
         if (p.Racer.IsPlayer)
         {
+            OnPlayerFinishLap?.Invoke(p.Laps);
             if (p.Laps == gameMode.TotalLaps) OnPlayerFinishRace?.Invoke(racerIndex);
-            else OnPlayerFinishLap?.Invoke(p.Laps);
         }
     }
 
