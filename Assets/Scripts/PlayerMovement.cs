@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour {
     public ParticleSystem particleSystem1;
     public ParticleSystem particleSystem2;
 
+    public bool Enabled { get; set; }
+
     private Transform _corner1;
     private Vector2 _corner1Target;
 
@@ -35,7 +37,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        if (!Enabled) return;
         _CalculateRotationState();
         _CalculateAngle();
 

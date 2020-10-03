@@ -11,19 +11,22 @@ namespace Entities.Enemy.Ai
 
         private StateMachine _stateMachine;
         private CircleCollider2D _collider;
+        public bool GameStarted { get; set; }
 
         private void Awake()
         {
             _collider = GetComponent<CircleCollider2D>();
 
             _stateMachine = new StateMachine();
+            var waitingToStartState = new IdleState();
             var moveState = new MoveState(GetComponent<Rigidbody2D>(), stats);
             var idleState = new IdleState();
 
+            _stateMachine.AddTransition(waitingToStartState, idleState, () => GameStarted);
             _stateMachine.AddTransition(idleState, moveState, IsGrounded);
             _stateMachine.AddTransition(moveState, idleState, () => !IsGrounded());
 
-            _stateMachine.SetState(idleState);
+            _stateMachine.SetState(waitingToStartState);
         }
 
         private void Update()
