@@ -7,16 +7,15 @@ using DefaultNamespace;
 using Positions;
 using UnityEngine;
 
-[RequireComponent(typeof(GameMode))]
 public class PositionManager : MonoBehaviour, IPositionManager
 {
-    
+
     [SerializeField] private GameMode gameMode;
-    
+
     private List<Position> _positions;
 
     private int _previousPosition;
-    
+
     public event PositionCallback OnPlayerPositionChange;
     public event PositionCallback OnPlayerFinishRace;
     public event LapCallback OnPlayerFinishLap;
@@ -38,10 +37,10 @@ public class PositionManager : MonoBehaviour, IPositionManager
             else if (p.Angle - newAngle < -_angleThreshold) LapCompleted(p.Racer, false);
             p.Angle = newAngle;
         }
-        
+
         _positions.Sort(); // Sort the positions, when should this be done? (And how often?)
         int newPosition = CalculatePlayerPosition();
-        
+
         if (newPosition != _previousPosition)
         {
             OnPlayerPositionChange?.Invoke(newPosition);
@@ -95,7 +94,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
         }
         return position;
     }
-    
+
     private class Position : IComparable<Position>
     {
         public Racer Racer { get; private set; }
