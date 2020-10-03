@@ -6,8 +6,10 @@ namespace Entities.Enemy.Ai
     [Serializable]
     public class Stats
     {
-        [SerializeField] private float speed;
+        [SerializeField] private float accelerationSpeed;
+        [SerializeField] private float maxSpeed;
 
-        public float Speed => speed;
+        public float AccelerationSpeed => accelerationSpeed;
+        public float MaxSpeed => maxSpeed;
     }
 }

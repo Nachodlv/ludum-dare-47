@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Graviting : MonoBehaviour
 {
     [SerializeField] private float gravityConstant = 1f; // 9.8f
-    
+
     private Rigidbody2D _rigidbody2D;
 
     private Vector2 _gravityVector;
