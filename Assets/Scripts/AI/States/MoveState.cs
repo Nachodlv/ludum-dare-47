@@ -23,7 +23,10 @@ namespace Entities.Enemy.Ai.States
 
         public void FixedTick()
         {
-            _rigidbody2D.velocity = _velocity * _stats.Speed;
+            if (_rigidbody2D.velocity.magnitude < _stats.MaxSpeed)
+            {
+                _rigidbody2D.AddForce(_velocity * _stats.AccelerationSpeed);
+            }
         }
 
         public void OnEnter()
