@@ -7,7 +7,7 @@ namespace UI
 {
     public class LapsUI : MonoBehaviour
     {
-        [SerializeField] private PositionManagerMock positionManager;
+        [SerializeField] private PositionManager positionManager;
         [SerializeField] private GameMode gameMode;
 
         [Header("Texts")]

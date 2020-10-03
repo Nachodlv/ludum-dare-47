@@ -12,12 +12,15 @@ namespace UI
 
         public void FillWithRacer(Racer racer, int position)
         {
-            racerName.text = racer.RacerName;
             positionText.text = position.ToString();
 
-            if (!racer.IsPlayer) return;
-            racerName.color = PlayerColor;
-            positionText.color = PlayerColor;
+            if (racer.IsPlayer)
+            {
+                racerName.color = PlayerColor;
+                positionText.color = PlayerColor;
+                racerName.text = "You";
+            }
+            else racerName.text = racer.RacerName;
         }
     }
 }

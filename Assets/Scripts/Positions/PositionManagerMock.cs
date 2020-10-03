@@ -36,9 +36,5 @@ namespace Positions
             Invoke(nameof(ChangeLapRandom), Random.Range(1, 5));
         }
 
-        private void FinishRace()
-        {
-            gameMode.FinishRace(GetRacersPositions());
-        }
     }
 }

@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO.Compression;
 using System.Linq;
-using DefaultNamespace;
 using Positions;
 using UnityEngine;
 
 public class PositionManager : MonoBehaviour, IPositionManager
 {
-    
-    [SerializeField] private GameMode gameMode;
-    
     private List<Position> _positions;
-
     private int _previousPosition;
-    
+    private int _totalLaps;
     public event PositionCallback OnPlayerPositionChange;
     public event PositionCallback OnPlayerFinishRace;
     public event LapCallback OnPlayerFinishLap;
@@ -25,6 +18,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
     private void Awake()
     {
         _positions = FindObjectsOfType<Racer>().Select(r => new Position(r)).ToList();
+        enabled = false;
     }
 
     // Update is called once per frame
@@ -38,7 +32,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
             else if (p.Angle - newAngle < -_angleThreshold) LapCompleted(i, false);
             p.Angle = newAngle;
         }
-        
+
         _positions.Sort(); // Sort the positions, when should this be done? (And how often?)
         int newPosition = FindPlayerPosition();
 
@@ -48,10 +42,15 @@ public class PositionManager : MonoBehaviour, IPositionManager
             _previousPosition = newPosition;
         }
     }
-
     public List<Racer> GetRacersPositions()
     {
         return _positions.Select(p => p.Racer).ToList();
+    }
+
+    public void StartCalculatingPositions(int totalLaps)
+    {
+        _totalLaps = totalLaps;
+        enabled = true;
     }
 
     private void LapCompleted(int racerIndex, bool increment)
@@ -62,7 +61,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
         if (p.Racer.IsPlayer)
         {
             OnPlayerFinishLap?.Invoke(p.Laps);
-            if (p.Laps == gameMode.TotalLaps) OnPlayerFinishRace?.Invoke(racerIndex);
+            if (p.Laps == _totalLaps) OnPlayerFinishRace?.Invoke(racerIndex);
         }
     }
 
@@ -79,7 +78,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
     {
         return _positions.FindIndex(p => p.Racer.IsPlayer);
     }
-    
+
     private class Position : IComparable<Position>
     {
         public Racer Racer { get; private set; }

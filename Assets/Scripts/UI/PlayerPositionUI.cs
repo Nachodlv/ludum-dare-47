@@ -7,7 +7,7 @@ namespace UI
 {
     public class PlayerPositionUI : MonoBehaviour
     {
-        [SerializeField] private PositionManagerMock positionManager;
+        [SerializeField] private PositionManager positionManager;
         [SerializeField] private TextMeshProUGUI currentPosition;
         [SerializeField] private TextMeshProUGUI positionText;
 
@@ -18,11 +18,12 @@ namespace UI
 
         private void PlayerPositionChange(int newPosition)
         {
-            currentPosition.text = newPosition.ToString();
+            var position = newPosition + 1;
+            currentPosition.text = position.ToString();
             var endingText = "th";
-            if (newPosition == 1) endingText = "st";
-            if (newPosition == 2) endingText = "nd";
-            if (newPosition == 3) endingText = "rd";
+            if (position == 1) endingText = "st";
+            if (position == 2) endingText = "nd";
+            if (position == 3) endingText = "rd";
             positionText.text = endingText;
         }
     }

@@ -10,7 +10,9 @@ public class GameMode : MonoBehaviour
     [SerializeField] private LeaderBoardUI leaderBoardUI;
     [SerializeField] private WaitTimeUI waitTimeUI;
 
-    [Header("Player")] [SerializeField] private PlayerMovement playerMovement;
+    [Header("References")]
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PositionManager positionManager;
 
     [Header("Configuration")]
     [SerializeField] private int waitingAtStart = 3;
@@ -22,12 +24,14 @@ public class GameMode : MonoBehaviour
     private void Awake()
     {
         waitTimeUI.OnFinishWaiting += StartRace;
+        positionManager.OnPlayerFinishRace += FinishRace;
         playerMovement.Enabled = false;
         _enemies = FindObjectsOfType<EnemyAI>();
     }
 
     private void Start()
     {
+        positionManager.StartCalculatingPositions(totalLaps);
         waitTimeUI.StartCountdown(waitingAtStart);
     }
 
@@ -40,8 +44,8 @@ public class GameMode : MonoBehaviour
         }
     }
 
-    public void FinishRace(List<Racer> racers)
+    private void FinishRace(int playerPosition)
     {
-        leaderBoardUI.ShowLeaderBoard(racers);
+        leaderBoardUI.ShowLeaderBoard(positionManager.GetRacersPositions());
     }
 }
