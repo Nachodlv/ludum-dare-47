@@ -5,9 +5,12 @@ using Random = UnityEngine.Random;
 public class Racer : MonoBehaviour
 {
     [SerializeField] private string racerName;
+    [SerializeField] private bool isPlayer;
+
+    public bool IsPlayer => isPlayer;
     public string RacerName => racerName;
 
-    private readonly string[] _names = {"Juan", "Eduardo"};
+    private readonly string[] _names = {"Juan", "Eduardo", "Rochi"};
 
     private void Awake()
     {
