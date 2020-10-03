@@ -17,7 +17,6 @@ namespace Positions
         {
             ChangePlayerPositionRandom();
             ChangeLapRandom();
-            Invoke(nameof(FinishRace), 2);
         }
 
         public List<Racer> GetRacersPositions()

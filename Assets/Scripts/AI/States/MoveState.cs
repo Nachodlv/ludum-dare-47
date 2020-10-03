@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Entities.Enemy.Ai.States
 {
@@ -18,7 +19,8 @@ namespace Entities.Enemy.Ai.States
         {
             var position = _rigidbody2D.position;
             var hit = Physics2D.Raycast(position, position.normalized);
-            _velocity = Rotate90CW(hit.normal);
+            _velocity = hit.normal.Rotate90CW();
+            Debug.DrawLine(position, position + _velocity, Color.red);
         }
 
         public void FixedTick()
@@ -36,18 +38,9 @@ namespace Entities.Enemy.Ai.States
 
         public void OnExit()
         {
-            Debug.Log("Stop moving");
         }
 
-        Vector2 Rotate90CW(Vector2 aDir)
-        {
-            return new Vector2(aDir.y, -aDir.x);
-        }
 
-        Vector2 Rotate90CCW(Vector2 aDir)
-        {
-            return new Vector2(-aDir.y, aDir.x);
-        }
 
     }
 }
