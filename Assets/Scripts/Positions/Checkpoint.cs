@@ -7,7 +7,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
 
-    [SerializeField] private int checkpointLength = 20;
+    [SerializeField] private int checkpointLength = 200;
     private float _angle;
 
     private EdgeCollider2D _edgeCollider2D;

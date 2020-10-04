@@ -25,7 +25,8 @@ public class CheckpointManager : MonoBehaviour
 
     public Checkpoint GetCheckpoint(Racer racer)
     {
-        return _checkpoints[racer];
+        if (_checkpoints.TryGetValue(racer, out var result)) return result;
+        return null;
     }
 
     private void RegisterCheckpoint(Racer racer, Checkpoint checkpoint)
