@@ -31,6 +31,11 @@ namespace UI
             quitButton.onClick.RemoveListener(CloseGame);
         }
 
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) StartRace();
+        }
+
         private void StartRace()
         {
             gameObject.SetActive(false);

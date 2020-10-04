@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 712116433}
   - component: {fileID: 712116434}
   - component: {fileID: 712116435}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 1181117935}
   - component: {fileID: 1181117934}
   - component: {fileID: 1181117936}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Iris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 3
+  m_AngularDrag: 8
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -659,6 +659,7 @@ MonoBehaviour:
   offsetNonDiagonal: 0.985
   forwardForce: 8
   fromAboveForce: 5
+  timeBetweenJumps: 0.5
   secondJump: 1
   rotationState: 0
   isGrounded: 0

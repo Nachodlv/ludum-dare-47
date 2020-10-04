@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
     public float offsetNonDiagonal;
     public float forwardForce;
     public float fromAboveForce;
+    public float timeBetweenJumps;
 
     public bool secondJump = true;
 
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public bool isGrounded = false;
     private Rigidbody2D _rigidBody2D;
+    private float _lastJump = 0;
     // Start is called before the first frame update
     void Start() {
         var corner1 = gameObject.transform.Find("corner1");
@@ -70,16 +72,19 @@ public class PlayerMovement : MonoBehaviour {
             Color.green
         );
         isGrounded = IsGrounded();
-        if (isGrounded || secondJump) {
+        var now = Time.time;
+        if (isGrounded || TimePassedForJump(now)) {
 
-            if (Input.GetKeyDown(KeyCode.A)) {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetMouseButtonDown(0)) {
                 secondJump = isGrounded;
+                _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner1.Target, position1, ForceMode2D.Impulse);
                 _corner1.Particles.Play();
             }
 
-            if (Input.GetKeyDown(KeyCode.D)) {
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(1)) {
                 secondJump = isGrounded;
+                _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
                 _corner2.Particles.Play();
             }
@@ -95,6 +100,11 @@ public class PlayerMovement : MonoBehaviour {
             Color.black
         );
         return Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain"));
+    }
+
+    private bool TimePassedForJump(float now)
+    {
+        return !(now - _lastJump < timeBetweenJumps);
     }
 
     private void _CalculateRotationState() {
