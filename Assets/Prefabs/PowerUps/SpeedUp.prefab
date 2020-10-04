@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1085036323480391159}
   - component: {fileID: 1085036323480391158}
-  - component: {fileID: 1085036323480391049}
   - component: {fileID: 1085036323480391157}
   - component: {fileID: 6711887028905263573}
+  - component: {fileID: 7866569383229470095}
   m_Layer: 0
   m_Name: SpeedUp
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085036323480391156}
-  m_LocalRotation: {x: -0, y: -0, z: 0.17822756, w: 0.9839893}
+  m_LocalRotation: {x: 0, y: 0, z: 0.1782269, w: 0.9839894}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -87,32 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1085036323480391049
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085036323480391156}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6b1fcbc91d806a146856d67eb7ce7b12, type: 2}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0052933656}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.14941326}
-  m_EdgeRadius: 0
 --- !u!114 &1085036323480391157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +119,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &7866569383229470095
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085036323480391156}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0074839676, y: 0.052687176}
+  serializedVersion: 2
+  m_Radius: 1.9952314
 --- !u!1 &2603375136311406387
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +160,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2603375136311406387}
   m_LocalRotation: {x: -0, y: -0, z: 0.8408897, w: 0.5412065}
-  m_LocalPosition: {x: 0.22, y: 0.1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0.03, y: 0.13, z: 0}
+  m_LocalScale: {x: 0.014514, y: 0.014514, z: 1}
   m_Children: []
   m_Father: {fileID: 1085036323480391159}
   m_RootOrder: 1
@@ -214,7 +204,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 620003737
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -842602715929306494, guid: b064b88b6c17ece48ae809951c878ce7,
     type: 3}
   m_Color: {r: 0, g: 1, b: 0.9270377, a: 1}
@@ -252,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8397094288615830415}
   m_LocalRotation: {x: -0, y: -0, z: 0.21189669, w: 0.9772921}
-  m_LocalPosition: {x: 0.22, y: -0.11, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 0}
   m_Children: []
   m_Father: {fileID: 1085036323480391159}
@@ -334,8 +324,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8893103245421969577}
   m_LocalRotation: {x: -0, y: -0, z: 0.8408897, w: 0.5412065}
-  m_LocalPosition: {x: -0, y: -0.44, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -0.19, y: -0.41, z: 0}
+  m_LocalScale: {x: 0.014514, y: 0.014514, z: 1}
   m_Children: []
   m_Father: {fileID: 1085036323480391159}
   m_RootOrder: 2
@@ -378,7 +368,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 620003737
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -842602715929306494, guid: b064b88b6c17ece48ae809951c878ce7,
     type: 3}
   m_Color: {r: 0, g: 1, b: 0.9270377, a: 1}

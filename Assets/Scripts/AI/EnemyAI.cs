@@ -12,6 +12,7 @@ namespace Entities.Enemy.Ai
 
         private StateMachine _stateMachine;
         private CircleCollider2D _collider;
+        private static LayerMask _mask;
         public bool GameStarted { get; set; }
 
         private void Awake()
@@ -20,14 +21,15 @@ namespace Entities.Enemy.Ai
 
             _stateMachine = new StateMachine();
             var waitingToStartState = new IdleState();
-            var moveState = new MoveState(GetComponent<Rigidbody2D>(), stats);
+            var moveState = new MoveState(GetComponent<Rigidbody2D>(), stats, _collider.radius);
             var idleState = new IdleState();
 
             _stateMachine.AddTransition(waitingToStartState, idleState, () => GameStarted);
-            _stateMachine.AddTransition(idleState, moveState, IsGrounded);
-            _stateMachine.AddTransition(moveState, idleState, () => !IsGrounded());
+            _stateMachine.AddTransition(idleState, moveState, () => GetNearTerrain(transform.position, _collider.radius));
+            _stateMachine.AddTransition(moveState, idleState, () => !GetNearTerrain(transform.position, _collider.radius));
 
             _stateMachine.SetState(waitingToStartState);
+            _mask = (1 << LayerMask.NameToLayer("Terrain")) | (1 << LayerMask.NameToLayer("Player"));
         }
 
         private void Update()
@@ -40,21 +42,23 @@ namespace Entities.Enemy.Ai
             _stateMachine.FixedTick();
         }
 
-        private bool IsGrounded()
+        public static RaycastHit2D GetNearTerrain(Vector2 position, float colliderRadius)
         {
-            var distanceCheck = 1f;
-            Vector2 position = transform.position;
-            Vector2 startLineDown = position + position.normalized * _collider.radius;
-            Vector2 endLineDown = startLineDown + position.normalized * distanceCheck;
-            Vector2 startLineRight = position + position.normalized.Rotate90CCW() * _collider.radius;
+            var distanceCheck = 2f;
+            Vector2 startLineRight = position + position.normalized.Rotate90CCW() * colliderRadius;
             Vector2 endLineRight = startLineRight + position.normalized.Rotate90CCW() * distanceCheck;
-            return LineCast(startLineRight, endLineRight) || LineCast(startLineDown, endLineDown);
+            var hit = LineCast(startLineRight, endLineRight);
+            if (hit) return hit;
+            Vector2 startLineDown = position + position.normalized * colliderRadius;
+            Vector2 endLineDown = startLineDown + position.normalized * distanceCheck;
+            return  LineCast(startLineDown, endLineDown);
         }
 
-        private bool LineCast(Vector2 startLine, Vector2 endLine)
+        private static RaycastHit2D LineCast(Vector2 startLine, Vector2 endLine)
         {
             Debug.DrawLine(startLine, endLine);
-            return Physics2D.Linecast(startLine, endLine, 1 << LayerMask.NameToLayer("Terrain"));
+
+            return Physics2D.Linecast(startLine, endLine, _mask);
         }
     }
 }

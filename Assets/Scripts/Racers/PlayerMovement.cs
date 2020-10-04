@@ -31,9 +31,9 @@ public class PlayerMovement : MonoBehaviour {
     public float offsetNonDiagonal;
     public float forwardForce;
     public float fromAboveForce;
-    
+
     public bool secondJump = true;
-    
+
     public RotationState rotationState;
     public bool Enabled { get; set; }
     private float _distToGround;
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour {
         );
         isGrounded = IsGrounded();
         if (isGrounded || secondJump) {
-                        
+
             if (Input.GetKeyDown(KeyCode.A)) {
                 secondJump = isGrounded;
                 _rigidBody2D.AddForceAtPosition(_corner1.Target, position1, ForceMode2D.Impulse);
@@ -94,7 +94,6 @@ public class PlayerMovement : MonoBehaviour {
             position + direction * (_distToGround + 2f),
             Color.black
         );
-        Debug.Log(Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain")));
         return Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain"));
     }
 
@@ -133,7 +132,7 @@ public class PlayerMovement : MonoBehaviour {
                 break;
         }
     }
-    
+
     private float _getAngleRelatedCircularFloor()
     {
         var position = transform.position;
