@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246a0348b2c14b14b464a1e09b0d859b, type: 3}
+  m_Name: Decrease Position Audios
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: d58d129951ae62f489ce92d33349c675, type: 2}
+  - {fileID: 11400000, guid: 50e5660ba75179940a1a44bc030dca62, type: 2}
+  - {fileID: 11400000, guid: d4ae8a6cf770207488a16f557599e74a, type: 2}
+  - {fileID: 11400000, guid: 46af551338118d548bb7cd889a2bd7a8, type: 2}
+  - {fileID: 11400000, guid: 5e695b948caf76f40b7b1e255d5f7bfa, type: 2}
+  - {fileID: 11400000, guid: 8629f79e3fc4c0b4e9268f321be30bb3, type: 2}
+  - {fileID: 11400000, guid: e213cb71a628b74428bf190aa2f76cec, type: 2}

@@ -37,6 +37,7 @@ namespace UI
             var timeRemaining = time - 1;
             while (timeRemaining > 0)
             {
+                if(timeRemaining == 2) AudioManager.instance.PlaySound(countdownClip);
                 yield return _waitOneSecond;
                 animator.SetTrigger(Show);
                 timeDisplay.text = timeRemaining.ToString();
