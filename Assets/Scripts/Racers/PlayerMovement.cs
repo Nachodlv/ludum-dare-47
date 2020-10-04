@@ -42,6 +42,10 @@ public class PlayerMovement : MonoBehaviour {
     public bool isGrounded = false;
     private Rigidbody2D _rigidBody2D;
     private float _lastJump = 0;
+
+    private Racer _racer;
+    [SerializeField] private float resetCooldown;
+    private float _resetTimer;
     // Start is called before the first frame update
     void Start() {
         var corner1 = gameObject.transform.Find("corner1");
@@ -50,6 +54,7 @@ public class PlayerMovement : MonoBehaviour {
         _corner2 = new Corner(corner2.transform, corner2.transform.GetComponentInChildren<ParticleSystem>(), Vector2.zero);
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _distToGround = GetComponent<Collider2D>().bounds.extents.y;
+        _racer = GetComponent<Racer>();
     }
 
     // Update is called once per frame
@@ -87,6 +92,16 @@ public class PlayerMovement : MonoBehaviour {
                 _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
                 _corner2.Particles.Play();
+            }
+
+            // Reset position to last checkpoint.
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (now > _resetTimer + resetCooldown)
+                {
+                    _racer.SpawnInLastCheckpoint();
+                    _resetTimer = now;
+                }
             }
         }
     }

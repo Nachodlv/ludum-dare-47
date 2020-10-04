@@ -23,7 +23,7 @@ public class Racer : MonoBehaviour
         return _names[Random.Range(0, _names.Length)];
     }
 
-    private void SpawnInLastCheckpoint()
+    public void SpawnInLastCheckpoint()
     {
         spawner.SpawnInCheckpoint(this);
     }

@@ -13,8 +13,12 @@ public class PositionManager : MonoBehaviour, IPositionManager
     public event PositionCallback OnPlayerFinishRace;
     public event LapCallback OnPlayerFinishLap;
 
+    public event WrongDirectionCallback OnWrongDirection;
+
     private int _angleThreshold = 180; // This is an angle that can never be traveled in a single update.
 
+    [SerializeField] private float wrongDirectionAngle;
+    private float _playerAngle;
     private void Awake()
     {
         _positions = FindObjectsOfType<Racer>().Select(r => new Position(r)).ToList();
@@ -31,6 +35,16 @@ public class PositionManager : MonoBehaviour, IPositionManager
             if(p.Angle - newAngle > _angleThreshold) LapCompleted(i, true);
             else if (p.Angle - newAngle < -_angleThreshold) LapCompleted(i, false);
             p.Angle = newAngle;
+
+            if (p.Racer.IsPlayer)
+            {
+                float fullAngle = newAngle + p.Laps * 360;
+                if (_playerAngle > fullAngle + wrongDirectionAngle)
+                {
+                    _playerAngle = fullAngle;
+                    OnWrongDirection?.Invoke();
+                } else if (_playerAngle < fullAngle) _playerAngle = fullAngle;
+            }
         }
 
         _positions.Sort(); // Sort the positions, when should this be done? (And how often?)
@@ -41,6 +55,10 @@ public class PositionManager : MonoBehaviour, IPositionManager
             OnPlayerPositionChange?.Invoke(newPosition);
             _previousPosition = newPosition;
         }
+        
+        // Save player angle
+        // If angle is smaller, check if the difference is bigger that the threshold
+        // If it is larger, save the angle as the new value
     }
     public List<Racer> GetRacersPositions()
     {
