@@ -15,7 +15,8 @@ namespace Entities.Enemy.Ai
         private CircleCollider2D _collider;
         private static LayerMask _mask;
         private float _timeStuck;
-        private Vector2 _lastPosition;
+        private float _lastAngle;
+        [SerializeField] private float angleThreshold;
 
         public bool GameStarted { get; set; }
 
@@ -27,7 +28,7 @@ namespace Entities.Enemy.Ai
             var waitingToStartState = new IdleState();
             var moveState = new MoveState(GetComponent<Rigidbody2D>(), stats, _collider.radius);
             var idleState = new IdleState();
-            var resetState = new ResetState();
+            var resetState = new ResetState(GetComponent<Racer>());
 
             _stateMachine.AddTransition(waitingToStartState, idleState, () => GameStarted);
             _stateMachine.AddTransition(idleState, moveState, () => GetNearTerrain(transform.position, _collider.radius));
@@ -72,9 +73,11 @@ namespace Entities.Enemy.Ai
 
         private bool IsStuck()
         {
-            Vector2 position = transform.position;
-            if (position != _lastPosition)
+            // It would be better to calculate this with the angle, to know if it is actually moving.
+            float angle = CalculateAngle(transform.position);
+            if (Math.Abs(angle - _lastAngle) > angleThreshold)
             {
+                _lastAngle = angle;
                 _timeStuck = 0;
                 return false;
             }
@@ -82,6 +85,12 @@ namespace Entities.Enemy.Ai
             if (_timeStuck < waitingTimeBeforeReset) return false;
             _timeStuck = 0;
             return true;
+        }
+        
+        private float CalculateAngle(Vector2 angle)
+        {
+            float value = Vector2.SignedAngle(Vector2.down, angle);
+            return value < 0 ? 360 + value : value;
         }
     }
 }
