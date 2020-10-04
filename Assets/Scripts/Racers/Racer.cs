@@ -6,6 +6,7 @@ public class Racer : MonoBehaviour
 {
     [SerializeField] private string racerName;
     [SerializeField] private bool isPlayer;
+    [SerializeField] private Spawner spawner;
 
     public bool IsPlayer => isPlayer;
     public string RacerName => racerName;
@@ -20,5 +21,10 @@ public class Racer : MonoBehaviour
     private string GetRandomName()
     {
         return _names[Random.Range(0, _names.Length)];
+    }
+
+    private void SpawnInLastCheckpoint()
+    {
+        spawner.SpawnInCheckpoint(this);
     }
 }

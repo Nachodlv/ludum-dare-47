@@ -9,7 +9,7 @@ public class CheckpointManager : MonoBehaviour
     [SerializeField] private int numberOfCheckpoints;
 
     // Create a dictionary for storing the checkpoints of each Racer.
-    private Dictionary<Racer, Checkpoint> _checkpoints = new Dictionary<Racer, Checkpoint>();
+    private Dictionary<Racer, Checkpoint> _checkpoints = new Dictionary<Racer, Checkpoint>(); // Should we give all of them an initial checkpoint?
 
     void Awake()
     {
@@ -31,6 +31,5 @@ public class CheckpointManager : MonoBehaviour
     private void RegisterCheckpoint(Racer racer, Checkpoint checkpoint)
     {
         _checkpoints[racer] = checkpoint;
-        Debug.Log("Reached checkpoint!");
     }
 }
