@@ -10,8 +10,7 @@ namespace UI
         [SerializeField] private PositionManager positionManager;
         [SerializeField] private GameMode gameMode;
 
-        [Header("Texts")]
-        [SerializeField] private TextMeshProUGUI totalLaps;
+        [Header("Texts")] [SerializeField] private TextMeshProUGUI totalLaps;
         [SerializeField] private TextMeshProUGUI currentLap;
 
         private void Awake()
@@ -22,7 +21,8 @@ namespace UI
 
         private void LapFinished(int lap)
         {
-            currentLap.text = lap.ToString();
+            if (lap < 0 || lap > gameMode.TotalLaps) return;
+            currentLap.text = (lap + 1).ToString();
         }
     }
 }

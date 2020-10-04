@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Sound;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace UI
         [SerializeField] private string messageAtEnd = "Go!";
         [SerializeField] private float timeMessageAtEnd = 2f;
         [SerializeField] private Animator animator;
+        [SerializeField] private SoundWithSettings countdownClip;
 
         public event Action OnFinishWaiting;
 

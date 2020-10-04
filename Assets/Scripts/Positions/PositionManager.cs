@@ -89,7 +89,7 @@ public class PositionManager : MonoBehaviour, IPositionManager
         {
             Racer = racer;
             Laps = -1; // Race starts before the finish line.
-            Angle = 0;
+            Angle = 360;
         }
 
         /**
