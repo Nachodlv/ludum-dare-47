@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cinemachine;
 using Entities.Enemy.Ai;
 using UI;
 using UnityEngine;
@@ -9,10 +10,12 @@ public class GameMode : MonoBehaviour
     [Header("UI")]
     [SerializeField] private LeaderBoardUI leaderBoardUI;
     [SerializeField] private WaitTimeUI waitTimeUI;
+    [SerializeField] private RectTransform playerCanvas;
 
     [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PositionManager positionManager;
+    [SerializeField] private CinemachineVirtualCamera playerVirtualCamera;
 
     [Header("Configuration")]
     [SerializeField] private int waitingAtStart = 3;
@@ -23,19 +26,22 @@ public class GameMode : MonoBehaviour
 
     private void Awake()
     {
-        waitTimeUI.OnFinishWaiting += StartRace;
+        waitTimeUI.OnFinishWaiting += CooldownFinished;
         positionManager.OnPlayerFinishRace += FinishRace;
         playerMovement.Enabled = false;
         _enemies = FindObjectsOfType<EnemyAI>();
+        playerCanvas.gameObject.SetActive(false);
     }
 
-    private void Start()
+    public void StartRace()
     {
+        playerCanvas.gameObject.SetActive(true);
+        playerVirtualCamera.Priority = 200;
         positionManager.StartCalculatingPositions(totalLaps);
         waitTimeUI.StartCountdown(waitingAtStart);
     }
 
-    private void StartRace()
+    private void CooldownFinished()
     {
         playerMovement.Enabled = true;
         foreach (var enemyAi in _enemies)
