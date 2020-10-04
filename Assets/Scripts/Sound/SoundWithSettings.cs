@@ -6,6 +6,6 @@ namespace Sound
     public class SoundWithSettings : ScriptableObject
     {
         public AudioClip audioClip;
-        public float volume;
+        public float volume = 1;
     }
 }

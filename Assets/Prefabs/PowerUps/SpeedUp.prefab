@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1000
+  sound: {fileID: 11400000, guid: 5648455915dd2984d8bacfe88882e5ba, type: 2}
 --- !u!95 &6711887028905263573
 Animator:
   serializedVersion: 3

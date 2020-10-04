@@ -10,7 +10,7 @@ namespace Sound
         private AudioSource _audioSource;
         private Func<IEnumerator> _playingSoundCoroutine;
         public Transform Transform { get; private set; }
-        
+
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -29,7 +29,12 @@ namespace Sound
         {
             _audioSource.volume = volume;
         }
-        
+
+        public void SetSpatialBlend(float newValue)
+        {
+            _audioSource.spatialBlend = newValue;
+        }
+
         public void StartClip()
         {
             _audioSource.Play();
