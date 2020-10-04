@@ -1,6 +1,7 @@
 ﻿using System;
 using Entities.Enemy.Ai.States;
 using UnityEngine;
+using Utils;
 
 namespace Entities.Enemy.Ai
 {
@@ -42,11 +43,18 @@ namespace Entities.Enemy.Ai
         private bool IsGrounded()
         {
             var distanceCheck = 1f;
-            var position = transform.position;
-            var startLine = position + position.normalized * _collider.radius;
-            var endLine = startLine + position.normalized * distanceCheck;
+            Vector2 position = transform.position;
+            Vector2 startLineDown = position + position.normalized * _collider.radius;
+            Vector2 endLineDown = startLineDown + position.normalized * distanceCheck;
+            Vector2 startLineRight = position + position.normalized.Rotate90CCW() * _collider.radius;
+            Vector2 endLineRight = startLineRight + position.normalized.Rotate90CCW() * distanceCheck;
+            return LineCast(startLineRight, endLineRight) || LineCast(startLineDown, endLineDown);
+        }
+
+        private bool LineCast(Vector2 startLine, Vector2 endLine)
+        {
             Debug.DrawLine(startLine, endLine);
-            return Physics2D.Linecast(startLine, endLine);
+            return Physics2D.Linecast(startLine, endLine, 1 << LayerMask.NameToLayer("Terrain"));
         }
     }
 }

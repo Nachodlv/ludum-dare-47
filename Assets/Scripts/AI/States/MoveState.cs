@@ -3,7 +3,7 @@ using Utils;
 
 namespace Entities.Enemy.Ai.States
 {
-    public class MoveState: IState
+    public class MoveState : IState
     {
         private readonly Rigidbody2D _rigidbody2D;
         private readonly Stats _stats;
@@ -18,7 +18,10 @@ namespace Entities.Enemy.Ai.States
         public void Tick()
         {
             var position = _rigidbody2D.position;
-            var hit = Physics2D.Raycast(position, position.normalized);
+            var mask = 1 << LayerMask.GetMask("Terrain");
+            var hit = Physics2D.Raycast(position, position.normalized.Rotate90CCW(), mask);
+            if (!hit) hit = Physics2D.Raycast(position, position.normalized, mask);
+            if (!hit) return;
             _velocity = hit.normal.Rotate90CW();
             Debug.DrawLine(position, position + _velocity, Color.red);
         }
@@ -38,8 +41,5 @@ namespace Entities.Enemy.Ai.States
         public void OnExit()
         {
         }
-
-
-
     }
 }
