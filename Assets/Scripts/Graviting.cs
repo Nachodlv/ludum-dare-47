@@ -8,8 +8,13 @@ public class Graviting : MonoBehaviour
 {
     [SerializeField] private float gravityConstant = 1f; // 9.8f
 
-    private Rigidbody2D _rigidbody2D;
+    public float GravityConstant
+    {
+        get => gravityConstant;
+        set => gravityConstant = value;
+    }
 
+    private Rigidbody2D _rigidbody2D;
     private Vector2 _gravityVector;
 
     // Start is called before the first frame update
@@ -31,3 +36,4 @@ public class Graviting : MonoBehaviour
         _rigidbody2D.AddForce(_gravityVector);
     }
 }
+

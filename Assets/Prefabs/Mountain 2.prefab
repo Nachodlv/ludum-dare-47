@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5805714850332089970
+--- !u!1 &6365292857324309174
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5805714850332089969}
-  - component: {fileID: 5805714850332089968}
-  - component: {fileID: 5805714850332089871}
+  - component: {fileID: 6365292857324309172}
+  - component: {fileID: 6365292857324309173}
+  - component: {fileID: 4134498987187935614}
   m_Layer: 9
-  m_Name: Trampoline
+  m_Name: Mountain 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5805714850332089969
+--- !u!4 &6365292857324309172
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5805714850332089970}
-  m_LocalRotation: {x: -0, y: -0, z: -0.06925005, w: 0.99759936}
-  m_LocalPosition: {x: -21.37, y: -176.8, z: 0}
-  m_LocalScale: {x: 185.85, y: 19.51, z: 1}
+  m_GameObject: {fileID: 6365292857324309174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.71566, y: -61.58524, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.9420004}
---- !u!212 &5805714850332089968
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &6365292857324309173
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5805714850332089970}
+  m_GameObject: {fileID: 6365292857324309174}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -68,43 +68,58 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 620003737
-  m_SortingLayer: 1
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.07035947, g: 1, b: 0, a: 1}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 3501156587019524352, guid: 7ab1989abd00a984daaf6e6351cca3ce,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 27.6, y: 27.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5805714850332089871
-BoxCollider2D:
+--- !u!68 &4134498987187935614
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5805714850332089970}
+  m_GameObject: {fileID: 6365292857324309174}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6b1fcbc91d806a146856d67eb7ce7b12, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0052933656}
-  m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.14941326}
+  m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: -10.2543955, y: 2.5574875}
+  - {x: -9.855293, y: 2.5470123}
+  - {x: -9.360083, y: 2.242897}
+  - {x: -7.5214634, y: 1.8604698}
+  - {x: -3.8425598, y: 3.1265526}
+  - {x: -1.4678955, y: 4.917198}
+  - {x: 0.32971954, y: 7.1205482}
+  - {x: 2.0507507, y: 10.199112}
+  - {x: 4.8534317, y: 13.148144}
+  - {x: 6.479376, y: 13.478691}
+  - {x: 8.3405075, y: 12.6683235}
+  - {x: 9.260433, y: 10.918358}
+  - {x: 10.016411, y: 7.1735077}
+  - {x: 10.180195, y: 1.8418541}
+  - {x: 10.434505, y: -1.5657349}
+  - {x: 11.169937, y: -4.8780556}
+  - {x: 12.50565, y: -7.1619835}
+  - {x: 13.57135, y: -8.01582}
+  - {x: 11.325773, y: -12.9802475}
+  - {x: -12.925699, y: -2.394802}
+  - {x: -12.815538, y: 0.4443512}
+  - {x: -11.26054, y: 1.7299614}
+  - {x: -10.482687, y: 2.42902}
+  - {x: -10.253179, y: 2.560608}

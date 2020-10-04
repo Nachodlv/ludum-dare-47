@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3947263547264997424}
   - component: {fileID: 3947263547264997427}
   - component: {fileID: 7147831433349440883}
+  - component: {fileID: 6124152745053441736}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     accelerationSpeed: 10
-    maxSpeed: 20
+    maxSpeed: 10
 --- !u!114 &3947263547264997427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +166,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racerName: 
   isPlayer: 0
+--- !u!114 &6124152745053441736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3947263547264997437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379c589202f1471d92cd0eafdf25c5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graviting: {fileID: 3947263547264997427}

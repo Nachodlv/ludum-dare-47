@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3257232631597762098}
   - component: {fileID: 452689077}
   - component: {fileID: 8797029085495737399}
+  - component: {fileID: 2628804962022566628}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -176,8 +177,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6587c555dcb103445af9d572585921f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   rotationState: 0
   particleSystem1: {fileID: 1249988451}
   particleSystem2: {fileID: 6166021533673604752}
@@ -192,8 +193,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ce646f4f2c62848a68dee448528a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   gravityConstant: 8
 --- !u!114 &8797029085495737399
 MonoBehaviour:
@@ -205,10 +206,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e102435df47741dd9acaf49037317227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  racerName: 
+  m_Name:
+  m_EditorClassIdentifier:
+  racerName:
   isPlayer: 1
+--- !u!114 &2628804962022566628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257232631597762121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379c589202f1471d92cd0eafdf25c5c9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  graviting: {fileID: 452689077}
 --- !u!1 &3257232632635663375
 GameObject:
   m_ObjectHideFlags: 0
