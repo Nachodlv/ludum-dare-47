@@ -13,6 +13,8 @@ namespace Positions
         public event PositionCallback OnPlayerFinishRace;
         public event LapCallback OnPlayerFinishLap;
 
+        public event WrongDirectionCallback OnWrongDirection;
+
         private void Awake()
         {
             ChangePlayerPositionRandom();

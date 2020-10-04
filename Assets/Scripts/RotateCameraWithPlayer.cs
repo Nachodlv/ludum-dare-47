@@ -11,6 +11,10 @@ namespace DefaultNamespace
         [SerializeField] private Transform player;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
+        private void Start() {
+            
+        }
+
         private void Update()
         {
             var playerPosition = player.position;

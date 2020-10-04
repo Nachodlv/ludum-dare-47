@@ -34,6 +34,11 @@ public class Checkpoint : MonoBehaviour
         _edgeCollider2D.points = vectors;
     }
 
+    public float GetCheckpointAngle()
+    {
+        return _angle;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Racer racer = other.GetComponent<Racer>();
