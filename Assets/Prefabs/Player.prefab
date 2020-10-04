@@ -296,7 +296,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 4.84
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -317,9 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6587c555dcb103445af9d572585921f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetDiagonal: 1.004
+  offsetNonDiagonal: 0.98
   rotationState: 0
-  particleSystem1: {fileID: 1249988451}
-  particleSystem2: {fileID: 6166021533673604752}
   isGrounded: 0
 --- !u!114 &452689077
 MonoBehaviour:
@@ -482,12 +482,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 680326567}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &6166021533673604752 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6166021533011194679, guid: 8f5028c0c21062f44b45e893001e15cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 680326567}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6166021532096920660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,12 +569,6 @@ PrefabInstance:
 --- !u!4 &1249988448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6166021533011194676, guid: 8f5028c0c21062f44b45e893001e15cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 6166021532096920660}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1249988451 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6166021533011194679, guid: 8f5028c0c21062f44b45e893001e15cc,
     type: 3}
   m_PrefabInstance: {fileID: 6166021532096920660}
   m_PrefabAsset: {fileID: 0}
