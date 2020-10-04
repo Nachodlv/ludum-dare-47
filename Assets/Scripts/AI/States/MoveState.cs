@@ -7,20 +7,20 @@ namespace Entities.Enemy.Ai.States
     {
         private readonly Rigidbody2D _rigidbody2D;
         private readonly Stats _stats;
+        private readonly float _colliderRadius;
         private Vector2 _velocity;
 
-        public MoveState(Rigidbody2D rigidbody2D, Stats stats)
+        public MoveState(Rigidbody2D rigidbody2D, Stats stats, float colliderRadius)
         {
             _rigidbody2D = rigidbody2D;
             _stats = stats;
+            _colliderRadius = colliderRadius;
         }
 
         public void Tick()
         {
             var position = _rigidbody2D.position;
-            var mask = 1 << LayerMask.GetMask("Terrain");
-            var hit = Physics2D.Raycast(position, position.normalized.Rotate90CCW(), mask);
-            if (!hit) hit = Physics2D.Raycast(position, position.normalized, mask);
+            var hit = EnemyAI.GetNearTerrain(position, _colliderRadius);
             if (!hit) return;
             _velocity = hit.normal.Rotate90CW();
             Debug.DrawLine(position, position + _velocity, Color.red);

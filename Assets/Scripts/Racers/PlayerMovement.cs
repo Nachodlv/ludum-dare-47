@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour {
     public enum RotationState {
@@ -11,27 +13,41 @@ public class PlayerMovement : MonoBehaviour {
         LowerRight
     }
 
+    private struct Corner {
+        public readonly ParticleSystem Particles;
+        public readonly Transform Transform;
+        public Vector2 Target;
+        public Corner(Transform transform,ParticleSystem particles, Vector2 target) {
+            Target = target;
+            Transform = transform;
+            Particles = particles;
+        }
+    }
+
+    private Corner _corner1;
+    private Corner _corner2;
+
+    public float offsetDiagonal;
+    public float offsetNonDiagonal;
+    public float forwardForce;
+    public float fromAboveForce;
+    public float timeBetweenJumps;
+
+    public bool secondJump = true;
+
     public RotationState rotationState;
-    public ParticleSystem particleSystem1;
-    public ParticleSystem particleSystem2;
-
     public bool Enabled { get; set; }
-
-    private Transform _corner1;
-    private Vector2 _corner1Target;
-
-    private Transform _corner2;
-    private Vector2 _corner2Target;
-
     private float _distToGround;
 
     public bool isGrounded = false;
     private Rigidbody2D _rigidBody2D;
+    private float _lastJump = 0;
     // Start is called before the first frame update
-    void Start()
-    {
-        _corner1 = GameObject.Find("corner1").transform;
-        _corner2 = GameObject.Find("corner2").transform;
+    void Start() {
+        var corner1 = gameObject.transform.Find("corner1");
+        var corner2 = gameObject.transform.Find("corner2");
+        _corner1 = new Corner(corner1.transform, corner1.transform.GetComponentInChildren<ParticleSystem>(), Vector2.zero);
+        _corner2 = new Corner(corner2.transform, corner2.transform.GetComponentInChildren<ParticleSystem>(), Vector2.zero);
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _distToGround = GetComponent<Collider2D>().bounds.extents.y;
     }
@@ -43,19 +59,34 @@ public class PlayerMovement : MonoBehaviour {
         _CalculateRotationState();
         _CalculateAngle();
 
-        Debug.DrawLine(_corner1.position, _corner1.position + new Vector3(_corner1Target.x, _corner1Target.y), Color.red);
-        Debug.DrawLine(_corner2.position, _corner2.position + new Vector3(_corner2Target.x, _corner2Target.y), Color.green);
-
+        var position1 = _corner1.Transform.position;
+        Debug.DrawLine(
+            position1,
+            position1 + new Vector3(_corner1.Target.x, _corner1.Target.y),
+            Color.red
+        );
+        var position2 = _corner2.Transform.position;
+        Debug.DrawLine(
+            position2,
+            position2 + new Vector3(_corner2.Target.x, _corner2.Target.y),
+            Color.green
+        );
         isGrounded = IsGrounded();
-        if (IsGrounded()) {
-            if (Input.GetKeyDown(KeyCode.A)) {
-                _rigidBody2D.AddForceAtPosition(_corner1Target, _corner1.position, ForceMode2D.Impulse);
-                particleSystem1.Play();
+        var now = Time.time;
+        if (isGrounded || TimePassedForJump(now)) {
+
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetMouseButtonDown(0)) {
+                secondJump = isGrounded;
+                _lastJump = now;
+                _rigidBody2D.AddForceAtPosition(_corner1.Target, position1, ForceMode2D.Impulse);
+                _corner1.Particles.Play();
             }
 
-            if (Input.GetKeyDown(KeyCode.D)) {
-                _rigidBody2D.AddForceAtPosition(_corner2Target, _corner2.position, ForceMode2D.Impulse);
-                particleSystem2.Play();
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(1)) {
+                secondJump = isGrounded;
+                _lastJump = now;
+                _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
+                _corner2.Particles.Play();
             }
         }
     }
@@ -63,52 +94,65 @@ public class PlayerMovement : MonoBehaviour {
     public bool IsGrounded() {
         var position = transform.position;
         var direction = position.normalized;
-        Debug.DrawLine(position, position + direction * (_distToGround + 2f), Color.black);
-        return Physics2D.Raycast(position, direction, _distToGround + 2f);
+        Debug.DrawLine(
+            position,
+            position + direction * (_distToGround + 2f),
+            Color.black
+        );
+        return Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain"));
+    }
+
+    private bool TimePassedForJump(float now)
+    {
+        return !(now - _lastJump < timeBetweenJumps);
     }
 
     private void _CalculateRotationState() {
-        var position1 = _corner1.position;
-        var x = position1.x;
-        var y = position1.y;
-        var position2 = _corner2.position;
-        var x2 = position2.x;
-        var y2 = position2.y;
-        if (x < x2) {
-            if (y < y2) {
-                rotationState = RotationState.LowerLeft;
-            } else {
-                rotationState = RotationState.UpperLeft;
-            }
+        var angle = _getAngleRelatedCircularFloor();
+        if (angle < 90) {
+            rotationState = RotationState.UpperRight;
+        } else if (angle < 180) {
+            rotationState = RotationState.LowerRight;
+        } else if (angle < 270) {
+            rotationState = RotationState.LowerLeft;
         } else {
-            if (y < y2) {
-                rotationState = RotationState.LowerRight;
-            } else {
-                rotationState = RotationState.UpperRight;
-            }
+            rotationState = RotationState.UpperLeft;
         }
     }
 
     private void _CalculateAngle() {
-        const float forwardForce = 15;
-        const float fromAboveForce = 15;
+        var position1 = _corner1.Transform.position;
+        var position2 = _corner2.Transform.position;
         switch (rotationState) {
             case RotationState.LowerLeft:
-                _corner1Target = new Vector2(0.65f ,1 ) * forwardForce;
-                _corner2Target = new Vector2(-1f ,-0.5f ) * fromAboveForce;
+                _corner1.Target = (position2 - position1 * offsetDiagonal) * forwardForce;
+                _corner2.Target = (position1 *  offsetNonDiagonal - position2) * fromAboveForce;
                 break;
             case RotationState.UpperLeft:
-                _corner1Target = new Vector2(1f ,-0.5f ) * fromAboveForce;
-                _corner2Target = new Vector2(-0.65f ,1 ) * forwardForce;
+                _corner1.Target = (position2 *  offsetNonDiagonal - position1) * fromAboveForce;
+                _corner2.Target = (position1 - position2 * offsetDiagonal) * forwardForce;
                 break;
             case RotationState.LowerRight:
-                _corner1Target = new Vector2(-0.65f ,1 ) * forwardForce;
-                _corner2Target = new Vector2(1f ,-0.5f ) * fromAboveForce;
+                _corner1.Target = (position2 - position1 * offsetDiagonal) * forwardForce;
+                _corner2.Target = (position1 *  offsetNonDiagonal - position2) * fromAboveForce;
                 break;
             case RotationState.UpperRight:
-                _corner1Target = new Vector2(-1f ,-0.5f) * fromAboveForce;
-                _corner2Target = new Vector2(0.65f ,1 )  * forwardForce;
+                _corner1.Target = (position2 *  offsetNonDiagonal - position1) * fromAboveForce;
+                _corner2.Target = (position1 - position2 * offsetDiagonal) * forwardForce;
                 break;
         }
     }
+
+    private float _getAngleRelatedCircularFloor()
+    {
+        var position = transform.position;
+        var cornerPosition = _corner1.Transform.position;
+        var firstAngle = _polarAngle(position.x, position.y);
+        var centeredPosition = new Vector2(position.x - cornerPosition.x, position.y - cornerPosition.y);
+        var secondAngle = _polarAngle(centeredPosition.x, centeredPosition.y);
+        var resultAngle = secondAngle - firstAngle;
+        return resultAngle < 0 ? 360 + resultAngle : resultAngle;
+    }
+
+    private float _polarAngle(float x, float y)  => Mathf.Atan2(x, y) * Mathf.Rad2Deg;
 }
