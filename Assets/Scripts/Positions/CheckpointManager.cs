@@ -9,7 +9,7 @@ public class CheckpointManager : MonoBehaviour
     [SerializeField] private int numberOfCheckpoints;
 
     // Create a dictionary for storing the checkpoints of each Racer.
-    private Dictionary<Racer, Checkpoint> _checkpoints;
+    private Dictionary<Racer, Checkpoint> _checkpoints = new Dictionary<Racer, Checkpoint>();
 
     void Awake()
     {
