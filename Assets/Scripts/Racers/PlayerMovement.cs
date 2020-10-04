@@ -27,8 +27,12 @@ public class PlayerMovement : MonoBehaviour {
     private Corner _corner1;
     private Corner _corner2;
 
-    public float offsetDiagonal = 1.004f;
-    public float offsetNonDiagonal = 0.98f;
+    public float offsetDiagonal;
+    public float offsetNonDiagonal;
+    public float forwardForce;
+    public float fromAboveForce;
+    
+    public bool secondJump = true;
     
     public RotationState rotationState;
     public bool Enabled { get; set; }
@@ -66,13 +70,16 @@ public class PlayerMovement : MonoBehaviour {
             Color.green
         );
         isGrounded = IsGrounded();
-        if (IsGrounded()) {
+        if (isGrounded || secondJump) {
+                        
             if (Input.GetKeyDown(KeyCode.A)) {
+                secondJump = isGrounded;
                 _rigidBody2D.AddForceAtPosition(_corner1.Target, position1, ForceMode2D.Impulse);
                 _corner1.Particles.Play();
             }
 
             if (Input.GetKeyDown(KeyCode.D)) {
+                secondJump = isGrounded;
                 _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
                 _corner2.Particles.Play();
             }
@@ -82,8 +89,13 @@ public class PlayerMovement : MonoBehaviour {
     public bool IsGrounded() {
         var position = transform.position;
         var direction = position.normalized;
-        Debug.DrawLine(position, position + direction * (_distToGround + 2f), Color.black);
-        return Physics2D.Raycast(position, direction, _distToGround + 2f);
+        Debug.DrawLine(
+            position,
+            position + direction * (_distToGround + 2f),
+            Color.black
+        );
+        Debug.Log(Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain")));
+        return Physics2D.Raycast(position, direction, _distToGround + 2f, LayerMask.GetMask("Terrain"));
     }
 
     private void _CalculateRotationState() {
@@ -100,8 +112,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void _CalculateAngle() {
-        const float forwardForce = 5;
-        const float fromAboveForce = 2;
         var position1 = _corner1.Transform.position;
         var position2 = _corner2.Transform.position;
         switch (rotationState) {

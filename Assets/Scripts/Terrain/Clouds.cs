@@ -11,7 +11,6 @@ namespace DefaultNamespace.Terrain
         {
             var myTransform = transform;
             myTransform.RotateAround(Vector3.zero, Vector3.forward, Time.deltaTime * movementSpeed);
-            Debug.Log(Time.deltaTime * movementSpeed);
         }
     }
 }
