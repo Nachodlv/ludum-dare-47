@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Sound
@@ -30,9 +31,14 @@ namespace Sound
             DontDestroyOnLoad(gameObject);
             _musicSource = GetComponent<AudioSource>();
             _pooler = new ObjectPooler<AudioSourcePooleable>();
-            _pooler.InstantiateObjects(audioSourceQuantity, audioSourcePrefab, "Audio Sources");
+
+            SceneManager.sceneLoaded += (scene, mode) => SceneLoaded();
         }
 
+        private void SceneLoaded()
+        {
+            _pooler.InstantiateObjects(audioSourceQuantity, audioSourcePrefab, "Audio Sources");
+        }
 
         public void PlaySound(SoundWithSettings soundWithSettings)
         {
