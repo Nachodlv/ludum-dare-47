@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using Cinemachine;
 using Entities.Enemy.Ai;
+using Sound;
 using UI;
 using UnityEngine;
 
 public class GameMode : MonoBehaviour
 {
+    [Header("Audio")] [SerializeField] private SoundWithSettings gameMusic;
+
     [Header("UI")]
     [SerializeField] private LeaderBoardUI leaderBoardUI;
     [SerializeField] private WaitTimeUI waitTimeUI;
@@ -39,6 +42,7 @@ public class GameMode : MonoBehaviour
         playerVirtualCamera.Priority = 200;
         positionManager.StartCalculatingPositions(totalLaps);
         waitTimeUI.StartCountdown(waitingAtStart);
+        AudioManager.instance.SetMusicSource(gameMusic);
     }
 
     private void CooldownFinished()

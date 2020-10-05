@@ -1,4 +1,5 @@
 ﻿using System;
+using Sound;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace UI
         [SerializeField] private GameMode gameMode;
         [SerializeField] private Button playButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private SoundWithSettings menuMusic;
 
         private void Awake()
         {
@@ -17,6 +19,11 @@ namespace UI
 #else
             quitButton.gameObject.SetActive(true);
 #endif
+        }
+
+        private void Start()
+        {
+            AudioManager.instance.SetMusicSource(menuMusic);
         }
 
         private void OnEnable()

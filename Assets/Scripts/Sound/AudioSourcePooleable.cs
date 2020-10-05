@@ -10,6 +10,7 @@ namespace Sound
         private AudioSource _audioSource;
         private Func<IEnumerator> _playingSoundCoroutine;
         public Transform Transform { get; private set; }
+        public AudioSource AudioSource => _audioSource;
 
         private void Awake()
         {
