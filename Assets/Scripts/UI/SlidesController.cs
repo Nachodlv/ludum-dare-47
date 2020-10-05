@@ -16,6 +16,8 @@ namespace UI
         [SerializeField] private float changeSlidesVelocity;
         [SerializeField] private Button closeSlides;
 
+        public event Action Disabled;
+
         private int _currentSlide;
         private Coroutine _currentCoroutine;
 
@@ -27,6 +29,7 @@ namespace UI
         {
             ShowFirstSlide();
             _currentSlide = 0;
+            AudioManager.instance.SetMusicSource(sounds[_currentSlide], .5f);
             leftButton.onClick.AddListener(PreviousSlide);
             rightButton.onClick.AddListener(NextSlide);
             closeSlides.onClick.AddListener(Close);
@@ -37,6 +40,7 @@ namespace UI
             leftButton.onClick.RemoveListener(PreviousSlide);
             rightButton.onClick.RemoveListener(NextSlide);
             closeSlides.onClick.RemoveListener(Close);
+            Disabled?.Invoke();
         }
 
         private void Close()
@@ -53,6 +57,7 @@ namespace UI
                 gameObject.SetActive(false);
                 return;
             }
+            AudioManager.instance.SetMusicSource(sounds[_currentSlide], .5f);
             if(_currentCoroutine != null) StopCoroutine(_currentCoroutine);
             _currentCoroutine = StartCoroutine(ChangeSlide(slides[_currentSlide - 1], slides[_currentSlide]));
         }
@@ -63,6 +68,7 @@ namespace UI
             _currentSlide--;
             if (_currentSlide == 0) leftButton.gameObject.SetActive(false);
             if(_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+            AudioManager.instance.SetMusicSource(sounds[_currentSlide], .5f);
             _currentCoroutine = StartCoroutine(ChangeSlide(slides[_currentSlide + 1], slides[_currentSlide]));
         }
 

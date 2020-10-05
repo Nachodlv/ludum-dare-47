@@ -55,20 +55,20 @@ namespace Sound
             SetUpAudioSource(audioSource, soundWithSettings);
         }
 
-        public void SetMusicSource(SoundWithSettings music)
+        public void SetMusicSource(SoundWithSettings music, float fadeTime = 1f)
         {
             if(_changeMusicCoroutine != null) StopCoroutine(_changeMusicCoroutine);
-            _changeMusicCoroutine = StartCoroutine(ChangeMusicSource(music));
+            _changeMusicCoroutine = StartCoroutine(ChangeMusicSource(music, fadeTime));
         }
 
-        private IEnumerator ChangeMusicSource(SoundWithSettings music)
+        private IEnumerator ChangeMusicSource(SoundWithSettings music, float fadeTime)
         {
-            yield return AudioFades.FadeOut(_musicSource, 1f);
+            yield return AudioFades.FadeOut(_musicSource, fadeTime);
             _musicSource.clip = music.audioClip;
             _musicSource.volume = 0;
             _musicSource.Play();
             _musicSource.loop = true;
-            yield return AudioFades.FadeIn(_musicSource, 1f, music.volume);
+            yield return AudioFades.FadeIn(_musicSource, fadeTime, music.volume);
         }
 
         private void SetUpAudioSource(AudioSourcePooleable audioSource, SoundWithSettings soundWithSettings)

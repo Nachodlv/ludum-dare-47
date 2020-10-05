@@ -13,17 +13,19 @@ public class Spawner : MonoBehaviour
 
     public void SpawnInCheckpoint(Racer racer)
     {
-        
+
         Checkpoint checkpoint = checkpointManager.GetCheckpoint(racer);
         if (checkpoint != null)
         {
             float angle = checkpoint.GetCheckpointAngle() + _angleOffset;
-            
+
             Vector2 vector = VectorFromAngle(angle);
+            var rigidbody = racer.GetComponent<Rigidbody2D>();
+            if (rigidbody != null) rigidbody.velocity = Vector2.zero;
             racer.transform.position = vector * CalculateDistanceToSpawnPoint(vector);
         }
     }
-    
+
     private Vector2 VectorFromAngle(float angle)
     {
         return Quaternion.Euler(0,0,angle) * Vector2.down;

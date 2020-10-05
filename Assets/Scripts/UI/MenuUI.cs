@@ -21,6 +21,11 @@ namespace UI
 #else
             quitButton.gameObject.SetActive(true);
 #endif
+            _slidesController.Disabled += () => AudioManager.instance.SetMusicSource(menuMusic);
+        }
+
+        private void Start()
+        {
             if (!Params.Instance.SlideShowSeen)
             {
                 _slidesController.gameObject.SetActive(true);
@@ -29,12 +34,8 @@ namespace UI
             else
             {
                 _slidesController.gameObject.SetActive(false);
+                AudioManager.instance.SetMusicSource(menuMusic);
             }
-        }
-
-        private void Start()
-        {
-            AudioManager.instance.SetMusicSource(menuMusic);
         }
 
         private void OnEnable()
@@ -51,7 +52,7 @@ namespace UI
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) StartRace();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) StartRace();
         }
 
         private void StartRace()
@@ -64,6 +65,5 @@ namespace UI
         {
             Application.Quit();
         }
-
     }
 }
