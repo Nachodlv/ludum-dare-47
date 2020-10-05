@@ -16,17 +16,21 @@ public class Graviting : MonoBehaviour
 
     private Rigidbody2D _rigidbody2D;
     private Vector2 _gravityVector;
+    private float _distanceToCenter;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        _distanceToCenter = transform.position.magnitude;
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        _gravityVector = gameObject.transform.position.normalized * gravityConstant;
+    void Update() {
+        float gravityMultiplier = 1;
+        if (transform.position.magnitude < _distanceToCenter * 0.8) {
+            gravityMultiplier = 2;
+        }
+        _gravityVector = gameObject.transform.position.normalized * (gravityConstant * gravityMultiplier);
     }
 
     private void FixedUpdate()
