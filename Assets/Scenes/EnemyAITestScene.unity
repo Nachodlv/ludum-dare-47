@@ -541,11 +541,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.8855817
       objectReference: {fileID: 0}
-    - target: {fileID: 6365292857324309173, guid: 1648dadac87d8c9438d44ae6076624c3,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6365292857324309174, guid: 1648dadac87d8c9438d44ae6076624c3,
         type: 3}
       propertyPath: m_Name
@@ -716,12 +711,12 @@ PrefabInstance:
     - target: {fileID: 6365292857324309172, guid: 1648dadac87d8c9438d44ae6076624c3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -118.5
+      value: -119.01
       objectReference: {fileID: 0}
     - target: {fileID: 6365292857324309172, guid: 1648dadac87d8c9438d44ae6076624c3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -133.6
+      value: -135.19
       objectReference: {fileID: 0}
     - target: {fileID: 6365292857324309172, guid: 1648dadac87d8c9438d44ae6076624c3,
         type: 3}
@@ -7041,11 +7036,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3947263547264997424, guid: 4cef1dcf7de54854b96f6a80d23d0043,
-        type: 3}
-      propertyPath: stats.accelerationSpeed
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 3947263547264997437, guid: 4cef1dcf7de54854b96f6a80d23d0043,
         type: 3}
       propertyPath: m_Name
