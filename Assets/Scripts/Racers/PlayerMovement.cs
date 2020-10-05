@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
                 _corner1.Particles.Play();
             }
 
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(1)) {
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(1)) {
                 secondJump = isGrounded;
                 _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
