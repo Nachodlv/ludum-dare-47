@@ -8,7 +8,6 @@ namespace DefaultNamespace
         public static Params Instance;
 
         public bool SlideShowSeen { get; set; }
-        public bool IsRetrying { get; set; }
 
         private void Awake()
         {

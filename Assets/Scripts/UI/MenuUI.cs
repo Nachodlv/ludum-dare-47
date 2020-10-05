@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using Sound;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace UI
         [SerializeField] private Button playButton;
         [SerializeField] private Button quitButton;
         [SerializeField] private SoundWithSettings menuMusic;
+        [SerializeField] private SlidesController _slidesController;
 
         private void Awake()
         {
@@ -19,6 +21,15 @@ namespace UI
 #else
             quitButton.gameObject.SetActive(true);
 #endif
+            if (!Params.Instance.SlideShowSeen)
+            {
+                _slidesController.gameObject.SetActive(true);
+                Params.Instance.SlideShowSeen = true;
+            }
+            else
+            {
+                _slidesController.gameObject.SetActive(false);
+            }
         }
 
         private void Start()
