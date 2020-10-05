@@ -39,7 +39,7 @@ namespace Entities.Enemy.Ai
             _stateMachine.AddTransition(resetState, idleState, () =>true);
 
             _stateMachine.SetState(waitingToStartState);
-            _mask = (1 << LayerMask.NameToLayer("Terrain")) | (1 << LayerMask.NameToLayer("Player"));
+            _mask = (1 << LayerMask.NameToLayer("Terrain")) | (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Enemy"));
         }
 
         private void Update()
@@ -86,7 +86,7 @@ namespace Entities.Enemy.Ai
             _timeStuck = 0;
             return true;
         }
-        
+
         private float CalculateAngle(Vector2 angle)
         {
             float value = Vector2.SignedAngle(Vector2.down, angle);

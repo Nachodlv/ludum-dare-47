@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3947263547264997427}
   - component: {fileID: 7147831433349440883}
   - component: {fileID: 6124152745053441736}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    accelerationSpeed: 35
+    accelerationSpeed: 50
     maxSpeed: 15
   waitingTimeBeforeReset: 3
   angleThreshold: 0.05
@@ -265,6 +265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LowGravityParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5697719712374935731, guid: c2d7e068ec385334395526d30c1b5d78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2d7e068ec385334395526d30c1b5d78, type: 3}
