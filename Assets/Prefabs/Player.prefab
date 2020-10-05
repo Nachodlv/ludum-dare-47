@@ -656,7 +656,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &3257232631597762098
 MonoBehaviour:
@@ -670,11 +670,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6587c555dcb103445af9d572585921f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetDiagonal: 1.01
-  offsetNonDiagonal: 0.985
-  forwardForce: 8
-  fromAboveForce: 5
+  offsetDiagonal: 1.015
+  offsetNonDiagonal: 0.98
+  forwardForce: 10
+  fromAboveForce: 7
   timeBetweenJumps: 0.5
+  jumpSound: {fileID: 11400000, guid: fd65a70889d08934d8b332996a5d9aec, type: 2}
   secondJump: 1
   rotationState: 0
   isGrounded: 0

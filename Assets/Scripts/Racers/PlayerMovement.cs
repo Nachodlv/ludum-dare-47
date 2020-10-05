@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour {
     public float forwardForce;
     public float fromAboveForce;
     public float timeBetweenJumps;
+    public SoundWithSettings jumpSound;
 
     public bool secondJump = true;
 
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour {
                 _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner1.Target, position1, ForceMode2D.Impulse);
                 _corner1.Particles.Play();
+                AudioManager.instance.PlaySound(jumpSound);
             }
 
             else if (Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(1)) {
@@ -92,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
                 _lastJump = now;
                 _rigidBody2D.AddForceAtPosition(_corner2.Target, position2, ForceMode2D.Impulse);
                 _corner2.Particles.Play();
+                AudioManager.instance.PlaySound(jumpSound);
             }
 
             // Reset position to last checkpoint.

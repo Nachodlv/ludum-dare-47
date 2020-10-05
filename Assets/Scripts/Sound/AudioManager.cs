@@ -15,6 +15,7 @@ namespace Sound
         public static AudioManager instance;
 
         private AudioSource _musicSource;
+        private Coroutine _changeMusicCoroutine;
         private ObjectPooler<AudioSourcePooleable> _pooler;
 
         private void Awake()
@@ -50,7 +51,8 @@ namespace Sound
 
         public void SetMusicSource(SoundWithSettings music)
         {
-            StartCoroutine(ChangeMusicSource(music));
+            if(_changeMusicCoroutine != null) StopCoroutine(_changeMusicCoroutine);
+            _changeMusicCoroutine = StartCoroutine(ChangeMusicSource(music));
         }
 
         private IEnumerator ChangeMusicSource(SoundWithSettings music)
