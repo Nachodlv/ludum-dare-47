@@ -21,8 +21,21 @@ public class Paralax : MonoBehaviour {
     void Update()
     {
         var position = player.transform.position;
-        var newAngle = Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg;
-        transform.Rotate(0,0, (_lastAngle - newAngle) * ParalaxMultiplier);
+        var newAngle = MathMod(Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg,360);
+        var rotation = _lastAngle - newAngle;
+        if (rotation > 300) {
+            rotation = 360 - _lastAngle + newAngle;
+        }
+
+        if (rotation < -300) {
+            rotation = 360 - newAngle + _lastAngle;
+        }
+
+        transform.Rotate(0,0, rotation * ParalaxMultiplier);
         _lastAngle = newAngle;
+    }
+    
+    static float MathMod(float a, int b) {
+        return a < 0 ? ((a % b) + b) % b : a % b;
     }
 }

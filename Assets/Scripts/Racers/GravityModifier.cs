@@ -12,6 +12,7 @@ namespace DefaultNamespace
 
         private List<GravityPowerUp> _powerUps;
         private Coroutine _affectingPowerUpsCoroutine;
+        public ParticleSystem particles;
 
         private void Awake()
         {
@@ -33,6 +34,7 @@ namespace DefaultNamespace
 
         private IEnumerator AffectingPowerUps()
         {
+            particles.Play();
             while (_powerUps.Count > 0)
             {
                 var gravityPowerUp = _powerUps.Last();
@@ -43,6 +45,7 @@ namespace DefaultNamespace
                 _powerUps.Remove(gravityPowerUp);
                 yield return null;
             }
+            particles.Stop();
         }
     }
 
