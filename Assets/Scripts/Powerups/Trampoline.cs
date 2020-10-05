@@ -16,7 +16,7 @@ namespace DefaultNamespace.Powerups
             if (rigidbody2D == null || racer == null) return;
 
             rigidbody2D.AddForce(-rigidbody2D.position.normalized *
-                                 (constantPower + rigidbody2D.velocity.magnitude * power));
+                                 (constantPower * (racer.IsPlayer ? 2 : 1)), ForceMode2D.Impulse);
             Debug.Log(constantPower + rigidbody2D.velocity.magnitude * power);
             AudioManager.instance.PlaySound(sound, transform.position);
         }

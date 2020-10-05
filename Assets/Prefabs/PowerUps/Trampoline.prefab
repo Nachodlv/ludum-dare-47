@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03d97190fb742c699b9c54888ea8f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 1000
+  power: 0
+  constantPower: 40
   sound: {fileID: 11400000, guid: cc745978f09ef214ba18bbc95394ce6f, type: 2}
 --- !u!68 &929440456
 EdgeCollider2D:

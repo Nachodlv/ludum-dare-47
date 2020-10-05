@@ -139,7 +139,8 @@ MonoBehaviour:
   stats:
     accelerationSpeed: 35
     maxSpeed: 15
-  waitingTimeBeforeReset: 0
+  waitingTimeBeforeReset: 3
+  angleThreshold: 0.05
 --- !u!114 &3947263547264997427
 MonoBehaviour:
   m_ObjectHideFlags: 0
